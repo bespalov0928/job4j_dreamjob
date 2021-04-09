@@ -50,11 +50,12 @@
             </div>
             <div class="card-body">
                 <%--<form action="<%=request.getContextPath()%>/candidate/save" method="post">--%>
-                    <form action="<%=request.getContextPath()%>/candidate/save?id=<%=candidate.getId()%>" method="post">
+                    <%--<form action="<%=request.getContextPath()%>/candidate/save?id=<%=candidate.getId()%>" method="post">--%>
+                    <form action="<%=request.getContextPath()%>/candidate.do?id=<%=candidate.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
                         <%--<input type="text" class="form-control" name="name">--%>
-                        <input type="text" class="form-control" name="name" value="<%candidate.getName()%>">
+                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

@@ -11,7 +11,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>PostServlet</servlet-name>
-        <url-pattern>/post/save</url-pattern>
+        <url-pattern>/post.do</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -20,7 +20,17 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>CandidatesServlet</servlet-name>
-        <url-pattern>/candidate/save</url-pattern>
+        <!--<url-pattern>/candidate/save</url-pattern>-->
+        <url-pattern>/candidate.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.IndexServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/index.do</url-pattern>
     </servlet-mapping>
 
 </web-app>
