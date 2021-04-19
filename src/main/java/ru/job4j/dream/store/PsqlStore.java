@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class PsqlStore implements Store {
+
     private final BasicDataSource pool = new BasicDataSource();
 
     private PsqlStore() {
@@ -66,22 +67,6 @@ public class PsqlStore implements Store {
     }
 
     @Override
-    public Collection<Candidate> findAllCandidates() {
-        List<Candidate> candidates = new ArrayList<>();
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * from candidate")) {
-            try (ResultSet it = ps.executeQuery()) {
-                while (it.next()) {
-                    candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return candidates;
-    }
-
-    @Override
     public void save(Post post) {
         if (post.getId() == 0) {
             create(post);
@@ -123,10 +108,10 @@ public class PsqlStore implements Store {
     public Post findById(int id) {
         Post post = null;
         try (Connection cn = pool.getConnection();
-        PreparedStatement ps = cn.prepareStatement("select * from post where id=?")){
+             PreparedStatement ps = cn.prepareStatement("select * from post where id=?")) {
             ps.setInt(1, id);
             ps.execute();
-            try (ResultSet it = ps.executeQuery()){
+            try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
                     post = new Post(it.getInt("id"), it.getString("name"));
                 }
@@ -136,5 +121,78 @@ public class PsqlStore implements Store {
         }
         return post;
     }
+
+    @Override
+    public Collection<Candidate> findAllCandidates() {
+        List<Candidate> candidates = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * from candidate")) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return candidates;
+    }
+
+    @Override
+    public void addCandidates(Candidate candidate) {
+        if (candidate.getId() == 0) {
+            createCandidate(candidate);
+        } else {
+            updateCandidate(candidate);
+        }
+
+    }
+
+    private Candidate createCandidate(Candidate candidate) {
+        Candidate cand = null;
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name) values (?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, candidate.getName());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    candidate.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cand;
+    }
+
+    private void updateCandidate(Candidate candidate) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("update candidate set name  = ? where id = ?")) {
+            ps.setString(1, candidate.getName());
+            ps.setInt(2, candidate.getId());
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Candidate findByIdCan(int id) {
+        Candidate cand = null;
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("select * FROM candidate WHERE id = ?")) {
+            ps.setInt(1, id);
+           try (ResultSet rs = ps.executeQuery()){
+               while (rs.next()) {
+                   cand = new Candidate(rs.getInt("id"), rs.getString("name"));
+               }
+           }
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cand;
+    }
+
 
 }
