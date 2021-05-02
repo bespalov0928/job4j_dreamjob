@@ -18,4 +18,5 @@ public interface Store {
 
     Candidate findByIdCan(int id);
 
+    void delCandidate(int id);
 }

@@ -182,11 +182,11 @@ public class PsqlStore implements Store {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("select * FROM candidate WHERE id = ?")) {
             ps.setInt(1, id);
-           try (ResultSet rs = ps.executeQuery()){
-               while (rs.next()) {
-                   cand = new Candidate(rs.getInt("id"), rs.getString("name"));
-               }
-           }
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    cand = new Candidate(rs.getInt("id"), rs.getString("name"));
+                }
+            }
             ps.execute();
         } catch (Exception e) {
             e.printStackTrace();
@@ -194,5 +194,14 @@ public class PsqlStore implements Store {
         return cand;
     }
 
-
+    @Override
+    public void delCandidate(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("delete from candidate where id = ?")) {
+            ps.setInt(1, id);
+            ps.execute();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

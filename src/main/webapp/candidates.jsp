@@ -37,6 +37,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Названия</th>
+                        <th scope="col">Фото</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -48,18 +49,14 @@
                                 </a>
                                 <c:out value="${post.name}"/>
                             </td>
+                            <td>
+                                <c:out value="${post.id}"/>
+                                <img src="<c:url value='/download?name=${post.id}'/>" width="100px" height="100px"/>
+                                <a href='<c:url value="photoUpload.jsp?id=${post.id}"/>'>Добавить фото</a>
+                                <a href='<c:url value="candidate/edit.jsp?id=${post.id}"/>'>Удалить кандидата</a>
+                            </td>
                         </tr>
                     </c:forEach>
-                    <%--<%for (Candidate can : (Collection<Candidate>) request.getAttribute("candidates")){%>--%>
-                    <%--<tr>--%>
-                        <%--<td>--%>
-                            <%--<a href="<%=request.getContextPath()%>/candidate/edit.jsp?id=<%=can.getId()%>">--%>
-                                <%--<i class="fa fa-edit mr-3"></i>--%>
-                            <%--</a>--%>
-                            <%--<%=can.getName()%>--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--<% } %>--%>
                     </tbody>
                 </table>
             </div>
