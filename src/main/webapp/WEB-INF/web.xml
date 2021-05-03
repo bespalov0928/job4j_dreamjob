@@ -67,9 +67,16 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>CandidateDelete</servlet-name>
-        <!--<url-pattern>/candidate/save</url-pattern>-->
         <url-pattern>/candidateDelete.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/auto.do</url-pattern>
+    </servlet-mapping>
 
 </web-app>
