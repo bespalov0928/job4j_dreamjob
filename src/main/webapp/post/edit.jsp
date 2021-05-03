@@ -2,6 +2,7 @@
 <%@ page import="ru.job4j.dream.store.PsqlStore" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
 <%@ page import="ru.job4j.dream.store.PsqlStore" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -40,12 +41,17 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-
-                <% if (id == null) {%>
-                Новая вакансия
-                <%} else { %>
-                Редактировать вакансии.
-                <%}%>
+                <ul class="nav">
+                    <% if (id == null) {%>
+                    Новая вакансия
+                    <%} else { %>
+                    Редактировать вакансии.
+                    <%}%>
+                    <li>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out
+                                value="${user.name}"/>|Выйти</a>
+                    </li>
+                </ul>
 
             </div>
             <div class="card-body">

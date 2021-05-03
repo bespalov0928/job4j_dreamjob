@@ -3,6 +3,7 @@
 <%@ page import="ru.job4j.dream.model.Post" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page import="ru.job4j.dream.store.PsqlStore" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,6 +32,7 @@
 
 <%
     String id = request.getParameter("id");
+//    String name = request.
     Candidate candidate = new Candidate(0, "");
     if (id != null) {
         candidate = PsqlStore.instOf().findByIdCan(Integer.valueOf(id));
@@ -41,12 +43,17 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-
-                <%if (id == null) {%>
-                Новый кандидат.
-                <%} else {%>
-                Редактирование кандидата
-                <%}%>
+                <ul class="nav">
+                    <%if (id == null) {%>
+                    Новый кандидат.
+                    <%} else {%>
+                    Редактирование кандидата
+                    <%}%>
+                    <li>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out
+                                value="${user.name}"/>|Выйти</a>
+                    </li>
+                </ul>
 
             </div>
             <div class="card-body">

@@ -29,6 +29,13 @@
         <div class="card" style="width: 100%">
             <div class="card-header">
                 Авторизация
+                <ul>
+                    <li>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out
+                                value="${user.name}"/>|Выйти</a>
+                    </li>
+                </ul>
+
             </div>
             <div class="card-body">
                 <form action="<%=request.getContextPath()%>/auto.do" method="post">

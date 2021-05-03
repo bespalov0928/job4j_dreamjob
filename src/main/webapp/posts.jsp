@@ -32,8 +32,15 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Вакансии
+                <ul class="nav">
+                    Вакансии
+                    <li>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out
+                                value="${user.name}"/>|Выйти</a>
+                    </li>
+                </ul>
             </div>
+
             <div class="card-body">
                 <table class="table">
                     <thead>
@@ -54,12 +61,12 @@
                     </c:forEach>
                     <%--<%for (Post post : (Collection<Post>) request.getAttribute("posts")){%>--%>
                     <%--<tr>--%>
-                        <%--<td>--%>
-                            <%--<a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">--%>
-                                <%--<i class="fa fa-edit mr-3"></i>--%>
-                            <%--</a>--%>
-                            <%--<%=post.getName()%>--%>
-                        <%--</td>--%>
+                    <%--<td>--%>
+                    <%--<a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">--%>
+                    <%--<i class="fa fa-edit mr-3"></i>--%>
+                    <%--</a>--%>
+                    <%--<%=post.getName()%>--%>
+                    <%--</td>--%>
                     <%--</tr>--%>
                     <%--<% } %>--%>
                     </tbody>
