@@ -23,7 +23,7 @@ public interface Store {
 
     void addUser(User user);
 
-    User findUserById(int id);
+    User findUserById(String email, String password);
 
     void deleteUser(int id);
 }

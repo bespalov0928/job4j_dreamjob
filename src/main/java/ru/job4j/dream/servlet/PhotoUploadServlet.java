@@ -28,7 +28,6 @@ public class PhotoUploadServlet extends HttpServlet {
         }
         req.setAttribute("images", images);
 
-        //RequestDispatcher dispatcher = req.getRequestDispatcher("/photoUpload.jsp");
         req.setAttribute("candidates", PsqlStore.instOf().findAllCandidates());
         RequestDispatcher dispatcher = req.getRequestDispatcher("candidates.jsp");
 

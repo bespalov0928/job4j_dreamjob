@@ -59,16 +59,6 @@
                             </td>
                         </tr>
                     </c:forEach>
-                    <%--<%for (Post post : (Collection<Post>) request.getAttribute("posts")){%>--%>
-                    <%--<tr>--%>
-                    <%--<td>--%>
-                    <%--<a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">--%>
-                    <%--<i class="fa fa-edit mr-3"></i>--%>
-                    <%--</a>--%>
-                    <%--<%=post.getName()%>--%>
-                    <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--<% } %>--%>
                     </tbody>
                 </table>
             </div>

@@ -32,7 +32,6 @@
 
 <%
     String id = request.getParameter("id");
-//    String name = request.
     Candidate candidate = new Candidate(0, "");
     if (id != null) {
         candidate = PsqlStore.instOf().findByIdCan(Integer.valueOf(id));
@@ -57,8 +56,6 @@
 
             </div>
             <div class="card-body">
-                <%--<form action="<%=request.getContextPath()%>/candidate/save" method="post">--%>
-                <%--<form action="<%=request.getContextPath()%>/candidate/save?id=<%=candidate.getId()%>" method="post">--%>
                 <form action="<%=request.getContextPath()%>/candidate.do?id=<%=candidate.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label>

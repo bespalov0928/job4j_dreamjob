@@ -47,7 +47,6 @@
                 </ul>
             </div>
             <div class="card-body">
-                <%--<form action="<c:url value='/photoUpload.do?id=<%=id%>'/>" method="post" enctype="multipart/form-data">--%>
                 <form action="<%=request.getContextPath()%>/photoUpload.do?id=<%=id%>" method="post"
                       enctype="multipart/form-data">
                     <div class="checkbox">

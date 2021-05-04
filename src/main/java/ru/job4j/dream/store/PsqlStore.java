@@ -247,11 +247,12 @@ public class PsqlStore implements Store {
     }
 
     @Override
-    public User findUserById(int id) {
+    public User findUserById(String email, String password) {
         User user = null;
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("select * from users where id = ?")) {
-            ps.setInt(1, id);
+             PreparedStatement ps = cn.prepareStatement("select * from users where email = ?, password=?")) {
+            ps.setString(1, email);
+            ps.setString(2, password);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getNString("password"));
