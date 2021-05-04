@@ -5,6 +5,9 @@ import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
@@ -16,6 +19,8 @@ import java.util.List;
 import java.util.Properties;
 
 public class PsqlStore implements Store {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PsqlStore.class.getName());
 
     private final BasicDataSource pool = new BasicDataSource();
 
@@ -62,7 +67,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
         return posts;
     }
@@ -88,7 +93,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
         return post;
     }
@@ -100,7 +105,7 @@ public class PsqlStore implements Store {
             pss.setInt(2, post.getId());
             pss.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
 
     }
@@ -118,7 +123,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
         return post;
     }
@@ -134,7 +139,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
         return candidates;
     }
@@ -161,7 +166,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
         return cand;
     }
@@ -173,7 +178,7 @@ public class PsqlStore implements Store {
             ps.setInt(2, candidate.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
     }
 
@@ -190,7 +195,7 @@ public class PsqlStore implements Store {
             }
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
         return cand;
     }
@@ -202,7 +207,7 @@ public class PsqlStore implements Store {
             ps.setInt(1, id);
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
     }
 
@@ -229,7 +234,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
     }
 
@@ -242,7 +247,7 @@ public class PsqlStore implements Store {
             ps.setInt(4, user.getId());
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
     }
 
@@ -260,19 +265,8 @@ public class PsqlStore implements Store {
             }
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in log example", e);
         }
         return user;
-    }
-
-    @Override
-    public void deleteUser(int id) {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("delete from users where id=?")) {
-            ps.setInt(1, id);
-            ps.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

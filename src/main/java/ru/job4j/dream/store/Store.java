@@ -25,5 +25,4 @@ public interface Store {
 
     User findUserById(String email, String password);
 
-    void deleteUser(int id);
 }
