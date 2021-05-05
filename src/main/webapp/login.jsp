@@ -1,6 +1,6 @@
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.model.Candidate" %>
-<%@ page import="ru.job4j.dream.store.PsqlStore" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,11 +31,11 @@
                 Авторизация
                 <ul>
                     <li>
-                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out
-                                value="${user.name}"/>|Выйти</a>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/auto.do">
+                        <c:out value="${user.name}"/>|Выйти</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="<%=request.getContextPath()%>/reg.jsp">Регистрация</a>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/reg.do">Регистрация</a>
                     </li>
                 </ul>
 

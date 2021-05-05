@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.PsqlStore" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
@@ -33,7 +33,6 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/post.do">Вакансии</a>
             </li>
             <li class="nav-item">
-                <%--<a class="nav-link" href="<%=request.getContextPath()%>/candidates.jsp">Кандидаты</a>--%>
                 <a class="nav-link" href="<%=request.getContextPath()%>/candidate.do">Кандидаты</a>
             </li>
             <li class="nav-item">
@@ -43,10 +42,10 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
             </li>
             <li>
-                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/auto.do">Войти</a>
             </li>
             <li>
-                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/>|Выйти</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/auto.do"> <c:out value="${user.name}"/>|Выйти</a>
             </li>
         </ul>
     </div>

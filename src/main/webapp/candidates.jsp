@@ -1,8 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.store.PsqlStore" %>
-<%@ page import="ru.job4j.dream.model.Candidate" %>
-<%@ page import="java.util.Collection" %>
-<%@ page import="java.util.Collections" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
 <html lang="en">
@@ -37,8 +34,8 @@
                 <ul class="nav">
                     <li>Кандидаты</li>
                     <li>
-                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out
-                                value="${user.name}"/>|Выйти</a>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/auto.do">
+                            <c:out value="${user.name}"/>|Выйти</a>
                     </li>
                 </ul>
 

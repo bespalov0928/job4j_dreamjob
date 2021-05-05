@@ -212,43 +212,51 @@ public class PsqlStore implements Store {
     }
 
     @Override
-    public void addUser(User user) {
-        if (user.getId() == 0) {
-            createUser(user);
+    public User addUser(int id, String name, String email, String password) {
+        User user_ = null;
+        if (id == 0) {
+            user_ = createUser(id, name, email, password);
         } else {
-            updateUser(user);
+            user_ = updateUser(id, name, email, password);
         }
+        return user_;
 
     }
 
-    private void createUser(User user) {
+    private User createUser(int id, String name, String email, String password) {
+        User user = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("INSERT INTO users(name, email, password) values (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
+            ps.setString(1, name);
+            ps.setString(2, email);
+            ps.setString(3, password);
             ps.execute();
-            try (ResultSet id = ps.getGeneratedKeys()) {
-                if (id.next()) {
-                    user.setId(id.getInt(1));
+            try (ResultSet id_ = ps.getGeneratedKeys()) {
+                if (id_.next()) {
+                    id = id_.getInt(1);
+                    user = new User(id, name, email, password);
                 }
             }
         } catch (Exception e) {
             LOG.error("Exception in log example", e);
         }
+        return user;
     }
 
-    private void updateUser(User user) {
+    private User updateUser(int id, String name, String email, String password) {
+        User user = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("update user set name = ?, email = ?, password=? where id=?")) {
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
-            ps.setInt(4, user.getId());
+            ps.setString(1, name);
+            ps.setString(2, email);
+            ps.setString(3, password);
+            ps.setInt(4, id);
             ps.execute();
+            user = new User(id, name, email, password);
         } catch (Exception e) {
             LOG.error("Exception in log example", e);
         }
+        return user;
     }
 
     @Override
@@ -269,4 +277,24 @@ public class PsqlStore implements Store {
         }
         return user;
     }
+
+    @Override
+    public User findUserByEmail(String email) {
+        User user = null;
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("select * from users where email = ?")) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("password"));
+                    System.out.println(user);
+                }
+            }
+            ps.execute();
+        } catch (Exception e) {
+            LOG.error("Exception in log example", e);
+        }
+        return user;
+    }
+
 }

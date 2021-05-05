@@ -10,25 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AuthServlet extends HttpServlet {
+public class RegServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("user", req.getSession().getAttribute("user"));
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getParameter("name");
+        String password = req.getParameter("password");
         String email = req.getParameter("email");
-        String pasword = req.getParameter("password");
-        if ("root@local".equals(email) && "root".equals(pasword)) {
-            HttpSession sc = req.getSession();
-            User admin = PsqlStore.instOf().findUserByEmail(email);
-            sc.setAttribute("user", admin);
-            resp.sendRedirect(req.getContextPath() + "/post.do");
-        } else {
-            req.setAttribute("error", "Не верный email или пароль");
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
-        }
+        HttpSession hs = req.getSession();
+        //User userStart = new User(0, name, email, password);
+        User user = PsqlStore.instOf().addUser(0, name, email, password);
+        hs.setAttribute("user", user);
+        resp.sendRedirect(req.getContextPath() + "/index.do");
     }
 }

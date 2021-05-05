@@ -48,8 +48,8 @@
                     Редактировать вакансии.
                     <%}%>
                     <li>
-                        <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out
-                                value="${user.name}"/>|Выйти</a>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/auto.do">
+                        <c:out value="${user.name}"/>|Выйти</a>
                     </li>
                 </ul>
 

@@ -21,8 +21,9 @@ public interface Store {
 
     void delCandidate(int id);
 
-    void addUser(User user);
+    User addUser(int id, String name, String email, String password);
 
     User findUserById(String email, String password);
 
+    User findUserByEmail(String email);
 }
