@@ -215,7 +215,7 @@ public class PsqlStore implements Store {
     public User addUser(int id, String name, String email, String password) {
         User user_ = null;
         if (id == 0) {
-            user_ = createUser(id, name, email, password);
+            user_ = createUser(name, email, password);
         } else {
             user_ = updateUser(id, name, email, password);
         }
@@ -223,7 +223,7 @@ public class PsqlStore implements Store {
 
     }
 
-    private User createUser(int id, String name, String email, String password) {
+    private User createUser(String name, String email, String password) {
         User user = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("INSERT INTO users(name, email, password) values (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -231,10 +231,10 @@ public class PsqlStore implements Store {
             ps.setString(2, email);
             ps.setString(3, password);
             ps.execute();
-            try (ResultSet id_ = ps.getGeneratedKeys()) {
-                if (id_.next()) {
-                    id = id_.getInt(1);
-                    user = new User(id, name, email, password);
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    int idNew = id.getInt(1);
+                    user = new User(idNew, name, email, password);
                 }
             }
         } catch (Exception e) {

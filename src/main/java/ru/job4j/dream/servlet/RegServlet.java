@@ -14,7 +14,7 @@ public class RegServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("user", req.getSession().getAttribute("user"));
-        req.getRequestDispatcher("index.jsp").forward(req, resp);
+        req.getRequestDispatcher("reg.jsp").forward(req, resp);
     }
 
     @Override
@@ -24,8 +24,14 @@ public class RegServlet extends HttpServlet {
         String email = req.getParameter("email");
         HttpSession hs = req.getSession();
         //User userStart = new User(0, name, email, password);
-        User user = PsqlStore.instOf().addUser(0, name, email, password);
-        hs.setAttribute("user", user);
+        User user = PsqlStore.instOf().findUserByEmail(email);
+        if (user != null){
+            hs.setAttribute("user", user);
+            resp.sendRedirect(req.getContextPath() + "/reg.do");
+            return;
+        }
+        user = PsqlStore.instOf().addUser(0, name, email, password);
+//        hs.setAttribute("user", user);
         resp.sendRedirect(req.getContextPath() + "/index.do");
     }
 }
