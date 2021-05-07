@@ -213,13 +213,13 @@ public class PsqlStore implements Store {
 
     @Override
     public User addUser(int id, String name, String email, String password) {
-        User user_ = null;
+        User user = null;
         if (id == 0) {
-            user_ = createUser(name, email, password);
+            user = createUser(name, email, password);
         } else {
-            user_ = updateUser(id, name, email, password);
+            user = updateUser(id, name, email, password);
         }
-        return user_;
+        return user;
 
     }
 
