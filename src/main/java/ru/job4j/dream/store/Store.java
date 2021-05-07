@@ -23,7 +23,5 @@ public interface Store {
 
     User addUser(int id, String name, String email, String password);
 
-    User findUserById(String email, String password);
-
     User findUserByEmail(String email);
 }

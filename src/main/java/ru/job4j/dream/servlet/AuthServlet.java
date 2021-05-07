@@ -21,14 +21,15 @@ public class AuthServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String pasword = req.getParameter("password");
-        if ("root@local".equals(email) && "root".equals(pasword)) {
+        User admin = PsqlStore.instOf().findUserByEmail(email);
+        if (admin != null && admin.getPassword().equals(pasword)) {
             HttpSession sc = req.getSession();
-            User admin = PsqlStore.instOf().findUserByEmail(email);
             sc.setAttribute("user", admin);
             resp.sendRedirect(req.getContextPath() + "/post.do");
-        } else {
+        } else{
             req.setAttribute("error", "Не верный email или пароль");
             req.getRequestDispatcher("login.jsp").forward(req, resp);
+
         }
     }
 }
