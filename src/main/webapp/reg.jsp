@@ -21,6 +21,24 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <script>
+        function validate() {
+            valid = true;
+            if (document.contact_form.name.value == "") {
+                alert("Пожалуйста заполните поле 'Имя'.")
+                valid = false;
+            }
+            if (document.contact_form.email.value == "") {
+                alert("Пожалуйста заполните поле 'Почта'.")
+                valid = false;
+            }
+            if (document.contact_form.pas.value == "") {
+                alert("Пожалуйста заполните поле 'Пароль'.")
+                valid = false;
+            }
+            return valid;
+        }
+    </script>
 
     <title>Работа мечты</title>
 
@@ -42,18 +60,18 @@
                 <%--</li>--%>
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/reg.do" method="post">
+                <form name="contact_form" action="<%=request.getContextPath()%>/reg.do" method="post" onsubmit="return validate();">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" id="name">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <input type="text" class="form-control" name="password" id="pas">
                     </div>
                     <div class="form-group">
                         <label>Почта</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="form-control" name="email" id="email">
                     </div>
                     <button type="submit" class="btn btn-primary">Зарегистрировать</button>
                     <%if (user != null) {%>

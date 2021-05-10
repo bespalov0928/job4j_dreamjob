@@ -24,8 +24,18 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>Работа мечты</title>
+    <script>
+        function validate() {
+            valid = true;
+            if (document.contact_form.name.value == "") {
+                alert("Пожалуйста заполните поле 'Имя'.")
+                valid = false;
+            }
+            return valid;
+        }
+    </script>
 
+    <title>Работа мечты</title>
 </head>
 <body>
 
@@ -55,11 +65,11 @@
 
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/candidate.do?id=<%=candidate.getId()%>" method="post">
+                <form name="contact_form" action="<%=request.getContextPath()%>/candidate.do?id=<%=candidate.getId()%>" method="post" onsubmit="return validate();">
                     <div class="form-group">
                         <label>Имя</label>
                         <%--<input type="text" class="form-control" name="name">--%>
-                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
+                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>" id="name">
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
