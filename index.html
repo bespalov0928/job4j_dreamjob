@@ -7,29 +7,92 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        // function validate() {
+        //     valid = true;
+        //     if (document.contact_form.usr.value == "") {
+        //         alert("Пожалуйста заполните поле 'Имя'.")
+        //         valid = false;
+        //     }
+        //     if (document.contact_form.pwd.value == "") {
+        //         alert("Пожалуйста заполните поле 'Пароль'.")
+        //         valid = false;
+        //     }
+        //     if (document.contact_form.Firstname.value == "") {
+        //         alert("Пожалуйста заполните поле 'Имя'.")
+        //         valid = false;
+        //     }
+        //     if (document.contact_form.Lastname.value == "") {
+        //         alert("Пожалуйста заполните поле 'Фамилия'.")
+        //         valid = false;
+        //     }
+        //     return valid;
+        // }
+
+        function validate() {
+            alert($('#usr').val());
+            if ($('#usr').val() == "") {
+                alert("Пожалуйста заполните поле 'Имя'.")
+            }
+            if ($('#pwd').val() == "") {
+                alert("Пожалуйста заполните поле 'Пароль'.")
+            }
+
+            if ($('#Firstname').val() == "") {
+                alert("Пожалуйста заполните поле 'Имя'.")
+            }
+
+            if ($('#Lastname').val() == "") {
+                alert("Пожалуйста заполните поле 'Фамилия'.")
+            }
+
+            return false;
+        }
+    </script>
+
+
 </head>
 <body>
+
+<div class="container">
+    <h2>Form control: input</h2>
+    <p>The form below contains two input elements; one of type text and one of type password:</p>
+    <form>
+        <div class="form-group">
+            <label for="usr">Name:</label>
+            <input type="text" class="form-control" title="Enter user name." name="usr" id="usr">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" name="pwd" id="pwd">
+        </div>
+        <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
+    </form>
+</div>
+
+
 <div class="container-fluid">
-    <form action="/action_page.php">
+    <form action="/action_page.php" method="post">
         <div class="form-group">
             <label for="Firstname">Имя:</label>
-            <input type="Firstname" class="form-control" id="Firstname">
+            <input type="Firstname" class="form-control" name="Firstname" id="Firstname">
         </div>
         <div class="form-group">
             <label for="Lastname">Фамилия:</label>
-            <input type="Lastname" class="form-control" id="Lastname">
+            <input type="Lastname" class="form-control" name="Lastname" id="Lastname">
         </div>
-        <div class="checkbox">
+        <div class="form-group">
             <label for="floor">Пол:</label>
             <select class="form-control" id="floor">
                 <option>мужчина</option>
                 <option>женщина</option>
             </select>
         </div>
-        <div class="form-group">
+         <div class="form-group">
             <label for="description">Описание:</label>
             <textarea class="form-control" id="description" rows="3"></textarea>
         </div>
+        <button type="button" class="btn btn-default" onclick="validate();">Submit</button>
         <table class="table">
             <thead>
             <tr>
@@ -39,23 +102,9 @@
             </tr>
             </thead>
             <tbody>
-            <!--<tr>-->
-                <!--<td>John</td>-->
-                <!--<td>Doe</td>-->
-                <!--<td>john@example.com</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td>Mary</td>-->
-                <!--<td>Moe</td>-->
-                <!--<td>mary@example.com</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td>July</td>-->
-                <!--<td>Dooley</td>-->
-                <!--<td>july@example.com</td>-->
-            <!--</tr>-->
             </tbody>
         </table>
+
     </form>
 </div>
 
