@@ -48,6 +48,18 @@
 
             return false;
         }
+
+        function addRow() {
+            var Firstname = $('#Firstname').val();
+            var Lastname = $('#Lastname').val();
+            var floor = $('#floor').val();
+            $('#table tr:last').after('' +
+                '<tr>' +
+                '<td>' + Firstname +'</td>' +
+                '<td>' + Lastname +'</td>' +
+                '<td>' + floor +'</td>' +
+                '</tr>');
+        }
     </script>
 
 
@@ -93,7 +105,7 @@
             <textarea class="form-control" id="description" rows="3"></textarea>
         </div>
         <button type="button" class="btn btn-default" onclick="validate();">Submit</button>
-        <table class="table">
+        <table class="table" id="table">
             <thead>
             <tr>
                 <th>Firstname</th>
@@ -104,6 +116,7 @@
             <tbody>
             </tbody>
         </table>
+        <button type="button" class="btn btn-default" onclick="return addRow();">Submit</button>
 
     </form>
 </div>
