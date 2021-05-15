@@ -11,17 +11,21 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
     function sendGreeting() {
+
+
          $.ajax({
             type: 'GET',
             url: 'http://localhost:8082/dreamjob/greet',
             data: 'name=' + $('#exampleInputEmail1').val(),
             dataType: 'text'
         }).done(function (data) {
+            var json = JSON.parse(data);
             var list = document.getElementById('div');
             var label = document.createElement('label');
             label.setAttribute('for', 'Note');
             label.setAttribute('class', 'text-inp-dop');
-            label.innerHTML = data;
+            //label.innerHTML = data;
+             label.innerHTML = json.text;
             list.before(label);
             //alert(data);
         }).fail(function (err) {
