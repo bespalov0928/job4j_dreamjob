@@ -18,9 +18,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -37,10 +39,17 @@ public class PostServletTest {
         PsqlStore.instOf().addUser(0, "root", "root@mail.ru", "root");
         PsqlStore.instOf().save(new Post(0, "post1"));
 
-        assertThat(mem.findAllPosts().iterator().next().getName(), is("post1"));
+        HttpServletRequest req = mock(HttpServletRequest.class);
+        HttpServletResponse resp = mock(HttpServletResponse.class);
+        req.setAttribute("posts", PsqlStore.instOf().findAllPosts());
+        req.setAttribute("user", PsqlStore.instOf().findUserByEmail("root@mail.ru"));
+        new PostServlet().doGet(req, resp);
 
-        User user = PsqlStore.instOf().findUserByEmail("root@mail.ru");
-        assertThat(user.getName(), is("root"));
+        verify(req).getRequestDispatcher("posts.jsp");
+//        assertThat(mem.findAllPosts().iterator().next().getName(), is("post1"));
+//
+//        User user = PsqlStore.instOf().findUserByEmail("root@mail.ru");
+//        assertThat(user.getName(), is("root"));
 
     }
 

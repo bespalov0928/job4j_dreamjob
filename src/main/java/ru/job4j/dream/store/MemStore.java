@@ -4,10 +4,10 @@ import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
 
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class MemStore implements Store{
     private static final MemStore INST = new MemStore();
@@ -37,8 +37,15 @@ public class MemStore implements Store{
         return INST;
     }
 
+    @Override
     public Collection<Post> findAllPosts() {
-        return posts.values();
+        List<Post> postsList = new ArrayList<>();
+        postsList = posts.entrySet().stream()
+                .map(e -> e.getValue())
+                .collect(Collectors.toList());
+        System.out.println(postsList);
+        return postsList;
+//        return posts.values();
     }
 
     public Collection<Candidate> findAllCandidates() {
