@@ -21,7 +21,7 @@ public class GreetingServlet extends HttpServlet {
         String name = req.getParameter("name");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
 
-        Data data = new Data(name);
+        Data data = new Data("Nice to meet you, "+name);
         String json = GSON.toJson(data);
         System.out.println(json);
         //writer.println("Nice to meet you, "+name);
