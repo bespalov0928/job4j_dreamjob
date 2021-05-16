@@ -14,14 +14,17 @@ import ru.job4j.dream.store.MemStore;
 import ru.job4j.dream.store.PsqlStore;
 import ru.job4j.dream.store.Store;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -41,16 +44,18 @@ public class PostServletTest {
 
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
+        HttpSession session = mock(HttpSession.class);
+        RequestDispatcher dispatcher = (RequestDispatcher) mock(HttpSession.class);
+
         req.setAttribute("posts", PsqlStore.instOf().findAllPosts());
-        req.setAttribute("user", PsqlStore.instOf().findUserByEmail("root@mail.ru"));
+
+        when(PsqlStore.instOf()).thenReturn(mem);
+        when(req.getSession()).thenReturn(session);
+        when(req.getRequestDispatcher(any())).thenReturn(dispatcher);
+
         new PostServlet().doGet(req, resp);
 
         verify(req).getRequestDispatcher("posts.jsp");
-//        assertThat(mem.findAllPosts().iterator().next().getName(), is("post1"));
-//
-//        User user = PsqlStore.instOf().findUserByEmail("root@mail.ru");
-//        assertThat(user.getName(), is("root"));
-
     }
 
     @Test
