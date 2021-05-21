@@ -35,7 +35,7 @@ public class PostServletTest {
 
     @Test
     public void doGet() throws ServletException, IOException {
-        MemStore mem = new MemStore();
+        Store mem = new MemStore();
         PowerMockito.mockStatic(PsqlStore.class);
         Mockito.when(PsqlStore.instOf()).thenReturn((Store) mem);
 

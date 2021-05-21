@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class MemStore implements Store{
-    private static final MemStore INST = new MemStore();
+    private static final Store INST = new MemStore();
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
@@ -33,7 +33,7 @@ public class MemStore implements Store{
 //        candidates.put(3, new Candidate(3, "Senior  Java"));
 //    }
 
-    public static MemStore instOf() {
+    public static Store instOf() {
         return INST;
     }
 
