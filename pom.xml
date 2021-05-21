@@ -90,13 +90,13 @@
 
 
     <!-- JUNIT -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <!--<version>${junit.version}</version>-->
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>junit</groupId>-->
+      <!--<artifactId>junit</artifactId>-->
+      <!--&lt;!&ndash;<version>${junit.version}</version>&ndash;&gt;-->
+      <!--<version>4.11</version>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
 
 
     <!-- POWERMOCK -->
