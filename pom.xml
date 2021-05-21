@@ -101,12 +101,12 @@
 
 
     <!-- POWERMOCK -->
-    <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-module-junit4</artifactId>
-      <version>${powermock-module-junit4.version}</version>
-      <scope>test</scope>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.powermock</groupId>-->
+      <!--<artifactId>powermock-module-junit4</artifactId>-->
+      <!--<version>${powermock-module-junit4.version}</version>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
 
     <dependency>
       <groupId>org.powermock</groupId>
