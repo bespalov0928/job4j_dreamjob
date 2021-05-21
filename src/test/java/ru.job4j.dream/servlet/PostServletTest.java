@@ -45,7 +45,7 @@ public class PostServletTest {
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
         HttpSession session = mock(HttpSession.class);
-        RequestDispatcher dispatcher = (RequestDispatcher) mock(HttpSession.class);
+        RequestDispatcher dispatcher = mock(RequestDispatcher.class);
 
         req.setAttribute("posts", PsqlStore.instOf().findAllPosts());
 
