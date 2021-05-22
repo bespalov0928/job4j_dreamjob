@@ -31,6 +31,7 @@ public class CandidateDelete extends HttpServlet {
                 break;
             }
         }
+        PsqlStore.instOf().delCandidate(Integer.valueOf(Integer.valueOf(req.getParameter("id"))));
         resp.sendRedirect(req.getContextPath() + "/candidate.do");
     }
 }

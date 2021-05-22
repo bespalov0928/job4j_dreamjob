@@ -2,6 +2,8 @@
 <%@ page import="ru.job4j.dream.store.PsqlStore" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page import="ru.job4j.dream.store.PsqlStore" %>
+<%@ page import="java.lang.reflect.Array" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
 <html lang="en">
@@ -41,10 +43,11 @@
 
 <%
     String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0, "");
+    Candidate candidate = new Candidate(0, "", "");
     if (id != null) {
         candidate = PsqlStore.instOf().findByIdCan(Integer.valueOf(id));
     }
+    ArrayList<String> arrCity = (ArrayList<String>) PsqlStore.instOf().findAllCity();
 %>
 
 <div class="container pt-3">
@@ -65,11 +68,26 @@
 
             </div>
             <div class="card-body">
-                <form name="contact_form" action="<%=request.getContextPath()%>/candidate.do?id=<%=candidate.getId()%>" method="post" onsubmit="return validate();">
+                <form name="contact_form" action="<%=request.getContextPath()%>/candidate.do?id=<%=candidate.getId()%>"
+                      method="post" onsubmit="return validate();">
                     <div class="form-group">
                         <label>Имя</label>
                         <%--<input type="text" class="form-control" name="name">--%>
                         <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>" id="name">
+                        <label for="city">Город</label>
+                        <%--<input type="text" class="form-control" name="city" value="<%=candidate.getCity()%>" id="city">--%>
+                        <%--<label for="floor">Пол:</label>--%>
+                        <%--<input value="<%=arrCity.get(0)%>">--%>
+                        <select class="form-control" name="city" value="<%=candidate.getCity()%>" id="city">
+                            <%for (int index = 0; index<arrCity.size(); index++) {%>
+                            <%--<option>мужчина</option>&ndash;%&gt;--%>
+                            <%--<input value="<%=arrCity.get(index)%>">--%>
+                            <option><%=arrCity.get(index)%></option>
+                            <%}%>
+                            <%--<option>мужчина</option>--%>
+                            <%--<option>женщина</option>--%>
+                        </select>
+
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

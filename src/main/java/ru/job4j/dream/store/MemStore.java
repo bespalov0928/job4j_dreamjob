@@ -18,6 +18,8 @@ public class MemStore implements Store{
 
     private final Map<String, User> users = new ConcurrentHashMap<>();
 
+    private final List<String> citys = new ArrayList<>();
+
     private static AtomicInteger POST_ID = new AtomicInteger(4);
 
     private static AtomicInteger CAND_ID = new AtomicInteger(4);
@@ -92,5 +94,10 @@ public class MemStore implements Store{
     @Override
     public User findUserByEmail(String email) {
         return users.get(email);
+    }
+
+    @Override
+    public Collection<String> findAllCity() {
+        return citys;
     }
 }

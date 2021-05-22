@@ -21,10 +21,14 @@ public class CandidatesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+//        System.out.println("city: "+ req.getParameter("city"));
+//        System.out.println("name: "+ req.getParameter("name"));
         PsqlStore.instOf().addCandidates(
                 new Candidate(
                         Integer.valueOf(req.getParameter("id")),
-                        req.getParameter("name")
+                        req.getParameter("name"),
+                        req.getParameter("city")
+
                 )
         );
         req.setAttribute("user", req.getSession().getAttribute("user"));

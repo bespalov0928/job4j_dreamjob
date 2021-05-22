@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -135,7 +136,7 @@ public class PsqlStore implements Store {
              PreparedStatement ps = cn.prepareStatement("SELECT * from candidate")) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
+                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"), it.getString("city")));
                 }
             }
         } catch (Exception e) {
@@ -157,8 +158,9 @@ public class PsqlStore implements Store {
     private Candidate createCandidate(Candidate candidate) {
         Candidate cand = null;
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name) values (?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name, city) values (?,?)", PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, candidate.getName());
+            ps.setString(2, candidate.getCity());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -173,9 +175,10 @@ public class PsqlStore implements Store {
 
     private void updateCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("update candidate set name  = ? where id = ?")) {
+             PreparedStatement ps = cn.prepareStatement("update candidate set name  = ?, city = ? where id = ?")) {
             ps.setString(1, candidate.getName());
-            ps.setInt(2, candidate.getId());
+            ps.setString(2, candidate.getCity());
+            ps.setInt(3, candidate.getId());
             ps.execute();
         } catch (Exception e) {
             LOG.error("Exception in log example", e);
@@ -190,7 +193,7 @@ public class PsqlStore implements Store {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    cand = new Candidate(rs.getInt("id"), rs.getString("name"));
+                    cand = new Candidate(rs.getInt("id"), rs.getString("name"), rs.getString("city"));
                 }
             }
             ps.execute();
@@ -278,4 +281,19 @@ public class PsqlStore implements Store {
         return user;
     }
 
+    @Override
+    public Collection<String> findAllCity() {
+        List<String> arrayList = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("select * from city")) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    arrayList.add(rs.getString("name"));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Exception in log example", e);
+        }
+        return arrayList;
+    }
 }

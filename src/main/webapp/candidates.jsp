@@ -46,8 +46,9 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Названия</th>
+                        <th scope="col">ФИО</th>
                         <th scope="col">Фото</th>
+                        <th scope="col">город</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -64,6 +65,12 @@
                                 <img src="<c:url value='/download?name=${post.id}'/>" width="100px" height="100px"/>
                                 <a href='<c:url value="photoUpload.jsp?id=${post.id}"/>'>Добавить фото</a>
                                 <a href='<c:url value="candidate/edit.jsp?id=${post.id}"/>'>Удалить кандидата</a>
+                            </td>
+                            <td>
+                                <%--<a href='<c:url value="candidate/edit.jsp?id=${post.id}"/>'>--%>
+                                    <%--<i class="fa fa-edit mr-3"></i>--%>
+                                <%--</a>--%>
+                                <c:out value="${post.city}"/>
                             </td>
                         </tr>
                     </c:forEach>

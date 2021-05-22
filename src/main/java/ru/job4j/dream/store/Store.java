@@ -24,4 +24,6 @@ public interface Store {
     User addUser(int id, String name, String email, String password);
 
     User findUserByEmail(String email);
+
+    Collection<String> findAllCity();
 }
