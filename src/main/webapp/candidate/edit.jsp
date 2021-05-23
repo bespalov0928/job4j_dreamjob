@@ -25,21 +25,42 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script>
-        function validate() {
-            valid = true;
-            if (document.contact_form.name.value == "") {
-                alert("Пожалуйста заполните поле 'Имя'.")
-                valid = false;
-            }
-            return valid;
-        }
-    </script>
-
+    <title>AJAX</title>
     <title>Работа мечты</title>
 </head>
 <body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    function validate() {
+        valid = true;
+        if (document.contact_form.name.value == "") {
+            alert("Пожалуйста заполните поле 'Имя'.")
+            valid = false;
+        }
+        return valid;
+    }
+
+    function readCity() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/dreamjob/city',
+            //     data: {text: $('#exampleInputEmail1').val()},
+            dataType: 'json'
+        }).done(function (data) {
+            var objSel = document.getElementById("city");
+            var cities = "";
+            for (i = 0; i < data.length; i++) {
+                cities += "<option value=" + data[i] + ">" + data[i] + "</option>";
+            }
+            $('#city').html(cities);
+        }).fail(function (err) {
+            alert("err");
+            alert(err);
+        });
+    }
+</script>
+
 
 <%
     String id = request.getParameter("id");
@@ -47,7 +68,6 @@
     if (id != null) {
         candidate = PsqlStore.instOf().findByIdCan(Integer.valueOf(id));
     }
-    ArrayList<String> arrCity = (ArrayList<String>) PsqlStore.instOf().findAllCity();
 %>
 
 <div class="container pt-3">
@@ -73,20 +93,13 @@
                     <div class="form-group">
                         <label>Имя</label>
                         <%--<input type="text" class="form-control" name="name">--%>
-                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>" id="name">
+                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>" id="name"  onclick="return readCity();">
                         <label for="city">Город</label>
-                        <%--<input type="text" class="form-control" name="city" value="<%=candidate.getCity()%>" id="city">--%>
-                        <%--<label for="floor">Пол:</label>--%>
-                        <%--<input value="<%=arrCity.get(0)%>">--%>
-                        <select class="form-control" name="city" value="<%=candidate.getCity()%>" id="city">
-                            <%for (int index = 0; index<arrCity.size(); index++) {%>
-                            <%--<option>мужчина</option>&ndash;%&gt;--%>
-                            <%--<input value="<%=arrCity.get(index)%>">--%>
-                            <option><%=arrCity.get(index)%></option>
-                            <%}%>
+                        <select class="form-control" name="city" id="city">
                             <%--<option>мужчина</option>--%>
                             <%--<option>женщина</option>--%>
                         </select>
+                        </button>
 
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
