@@ -57,6 +57,7 @@
         }).fail(function (err) {
             alert("err");
             alert(err);
+            //console.log(err);
         });
     }
 </script>

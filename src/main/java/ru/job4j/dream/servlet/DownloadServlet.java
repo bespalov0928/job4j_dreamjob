@@ -32,15 +32,18 @@ public class DownloadServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         File downloadFile = null;
-        for (File file : new File("c:\\images\\").listFiles()) {
-            if (name.equals(file.getName())) {
+        //for (File file : new File("c:\\images\\").listFiles()) {
+        for (File file : new File("c:\\projects\\job4j_dreamjob\\images\\").listFiles()) {
+            String[] subStr = file.getName().split("\\.");
+            if (name.equals(subStr[0])) {
                 downloadFile = file;
                 break;
             }
+            //downloadFile = file;
         }
         resp.setContentType("application/octet-stream");
         resp.setHeader("Content-Disposition", "attachment; filename=\"" + downloadFile.getName() + "\"");
-        try (FileInputStream stream = new FileInputStream(downloadFile)){
+        try (FileInputStream stream = new FileInputStream(downloadFile)) {
             resp.getOutputStream().write(stream.readAllBytes());
         }
     }
