@@ -94,7 +94,8 @@
                     <div class="form-group">
                         <label>Имя</label>
                         <%--<input type="text" class="form-control" name="name">--%>
-                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>" id="name"  onclick="return readCity();">
+                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>" id="name"
+                               onclick="return readCity();">
                         <label for="city">Город</label>
                         <select class="form-control" name="city" id="city">
                             <%--<option>мужчина</option>--%>
